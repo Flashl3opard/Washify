@@ -118,6 +118,7 @@
   }
   body {
     background-color: #b8eaf8;
+    scroll-behavior: smooth;
   }
 }
 

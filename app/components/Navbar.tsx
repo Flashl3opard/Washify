@@ -10,6 +10,14 @@ const Navbar = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const navItems = [
+    { label: "Home", id: "home" },
+    { label: "How it works", id: "Works.tsx" },
+    { label: "Services", id: "services" },
+    { label: "Locations", id: "locations" },
+    { label: "Contact Us", id: "contact-us" },
+  ];
+
   return (
     <div className="w-full mx-auto rounded-2xl shadow-2xl my-auto px-5 bg-white">
       <nav className="flex flex-wrap items-center justify-between py-4 relative z-30">
@@ -46,16 +54,16 @@ const Navbar = () => {
             </li>
           )}
 
-          {["Home", "How it works", "Services", "Locations", "Contact Us"].map(
-            (item) => (
-              <li
-                key={item}
-                className="p-4 text-lg font-semibold text-blue-900 hover:text-blue-600 cursor-pointer text-center md:text-left transition-colors duration-200"
-              >
-                {item}
-              </li>
-            )
-          )}
+          {navItems.map(({ label, id }) => (
+            <li
+              key={id}
+              className="p-4 text-lg font-semibold text-blue-900 hover:text-blue-600 cursor-pointer text-center md:text-left transition-colors duration-200"
+            >
+              <a href={`#${id}`} onClick={() => setMobileMenuOpen(false)}>
+                {label}
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </div>

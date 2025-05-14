@@ -83,7 +83,7 @@ export default function WashifyPage() {
       name: "Pillow Covers",
       count: 0,
       price: 150,
-      image: "/pillow.png",
+      image: "/pillows.png",
     },
     {
       id: 12,

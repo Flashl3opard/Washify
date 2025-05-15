@@ -12,7 +12,7 @@ const Footer = () => {
 
           <div className="flex flex-wrap gap-16 text-sm text-gray-800">
             <div>
-              <h3 className="font-semibold mb-2">About us</h3>
+              <h3 className="font-semibold mb-2">About-us</h3>
               <ul className="space-y-1">
                 <li>
                   <a href="#">About us</a>

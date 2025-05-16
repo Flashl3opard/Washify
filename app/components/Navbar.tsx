@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link"; // Only if using Next.js
 import { MdOutlineBubbleChart } from "react-icons/md";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
@@ -11,11 +12,11 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { label: "Home", id: "home" },
-    { label: "How it works", id: "Works.tsx" },
-    { label: "Services", id: "services" },
-    { label: "Locations", id: "locations" },
-    { label: "Contact Us", id: "contact-us" },
+    { label: "Home", path: "" },
+    { label: "How it works", path: "#how-it-works" }, // assuming it's a section ID
+    { label: "Services", path: "/Main" }, // proper route
+    { label: "Locations", path: "#locations" },
+    { label: "Contact Us", path: "#contact-us" },
   ];
 
   return (
@@ -54,14 +55,20 @@ const Navbar = () => {
             </li>
           )}
 
-          {navItems.map(({ label, id }) => (
+          {navItems.map(({ label, path }) => (
             <li
-              key={id}
+              key={label}
               className="p-4 text-lg font-semibold text-blue-900 hover:text-blue-600 cursor-pointer text-center md:text-left transition-colors duration-200"
             >
-              <a href={`#${id}`} onClick={() => setMobileMenuOpen(false)}>
-                {label}
-              </a>
+              {path.startsWith("/") ? (
+                <Link href={path} onClick={() => setMobileMenuOpen(false)}>
+                  {label}
+                </Link>
+              ) : (
+                <a href={path} onClick={() => setMobileMenuOpen(false)}>
+                  {label}
+                </a>
+              )}
             </li>
           ))}
         </ul>

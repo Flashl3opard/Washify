@@ -5,79 +5,22 @@ import { Plus, Minus, ShoppingBag, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
+import { useRouter } from "next/navigation";
 
 export default function WashifyPage() {
+  const router = useRouter();
+
   const [items, setItems] = useState([
-    {
-      id: 1,
-      name: "T-shirt",
-      count: 0,
-      price: 15,
-      image: "/tshirt.png",
-    },
-    {
-      id: 2,
-      name: "Shirt",
-      count: 0,
-      price: 20,
-      image: "/shirt.png",
-    },
-    {
-      id: 3,
-      name: "Pants",
-      count: 0,
-      price: 20,
-      image: "/pants.png",
-    },
-    {
-      id: 4,
-      name: "Trousers",
-      count: 0,
-      price: 25,
-      image: "/trousers.png",
-    },
-    {
-      id: 5,
-      name: "Kurta",
-      count: 0,
-      price: 20,
-      image: "/kurta.png",
-    },
-    {
-      id: 6,
-      name: "Saree",
-      count: 0,
-      price: 50,
-      image: "/saree.png",
-    },
-    {
-      id: 7,
-      name: "Jacket",
-      count: 0,
-      price: 80,
-      image: "/jacket.png",
-    },
-    {
-      id: 8,
-      name: "Blanket",
-      count: 0,
-      price: 150,
-      image: "/towel.png",
-    },
-    {
-      id: 9,
-      name: "Towel",
-      count: 0,
-      price: 150,
-      image: "/towels.png",
-    },
-    {
-      id: 10,
-      name: "Bedsheets",
-      count: 0,
-      price: 150,
-      image: "/bedcover.png",
-    },
+    { id: 1, name: "T-shirt", count: 0, price: 15, image: "/tshirt.png" },
+    { id: 2, name: "Shirt", count: 0, price: 20, image: "/shirt.png" },
+    { id: 3, name: "Pants", count: 0, price: 20, image: "/pants.png" },
+    { id: 4, name: "Trousers", count: 0, price: 25, image: "/trousers.png" },
+    { id: 5, name: "Kurta", count: 0, price: 20, image: "/kurta.png" },
+    { id: 6, name: "Saree", count: 0, price: 50, image: "/saree.png" },
+    { id: 7, name: "Jacket", count: 0, price: 80, image: "/jacket.png" },
+    { id: 8, name: "Blanket", count: 0, price: 150, image: "/towel.png" },
+    { id: 9, name: "Towel", count: 0, price: 150, image: "/towels.png" },
+    { id: 10, name: "Bedsheets", count: 0, price: 150, image: "/bedcover.png" },
     {
       id: 11,
       name: "Pillow Covers",
@@ -85,13 +28,7 @@ export default function WashifyPage() {
       price: 150,
       image: "/pillows.png",
     },
-    {
-      id: 12,
-      name: "Shoes",
-      count: 0,
-      price: 150,
-      image: "/shoes.png",
-    },
+    { id: 12, name: "Shoes", count: 0, price: 150, image: "/shoes.png" },
   ]);
 
   const handleIncrement = (id: number) => {
@@ -119,9 +56,7 @@ export default function WashifyPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 to-white">
-      <div className="">
-        <Navbar />
-      </div>
+      <Navbar />
       <div className="max-w-5xl mx-auto p-4 md:p-6">
         <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-cyan-100">
           <h2 className="text-xl font-semibold mb-6 text-gray-800 flex items-center">
@@ -218,24 +153,20 @@ export default function WashifyPage() {
           <Button
             className="w-full py-4 bg-white hover:bg-cyan-50 text-cyan-700 font-medium rounded-lg flex items-center justify-center gap-2 transition-all"
             disabled={totalItems === 0}
+            onClick={() => {
+              if (totalItems > 0) {
+                router.push("/centres");
+              }
+            }}
           >
-            {totalItems > 0 ? (
-              <>
-                <ShoppingBag className="w-5 h-5" />
-                Confirm Laundry Order
-              </>
-            ) : (
-              <>
-                <ShoppingBag className="w-5 h-5" />
-                Add items to continue
-              </>
-            )}
+            <ShoppingBag className="w-5 h-5" />
+            {totalItems > 0 ? "Confirm Laundry Order" : "Add items to continue"}
           </Button>
 
           {totalItems > 0 && (
             <p className="text-center text-cyan-100 text-sm mt-2 flex items-center justify-center">
-              <Check className="w-4 h-4 mr-1" /> Free pickup for orders over
-              ₹150
+              <Check className="w-4 h-4 mr-1" />
+              Free pickup for orders over ₹150
             </p>
           )}
         </div>

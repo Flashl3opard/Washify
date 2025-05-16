@@ -114,7 +114,6 @@ export default function LaundryFacilities() {
     (facility) => facility.isSelected
   ).length;
 
-  // Function to render star ratings
   const renderStars = (rating: number) => {
     const stars = [];
     const fullStars = Math.floor(rating);

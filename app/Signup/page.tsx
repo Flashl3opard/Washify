@@ -2,7 +2,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br  p-4">
+    <div className="min-h-screen flex items-center justify-center  p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
         <h1 className="text-3xl font-bold text-center text-gray-800 translate-x-3">
           Washify🫧

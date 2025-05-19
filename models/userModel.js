@@ -38,3 +38,7 @@ const UserSchema = new mongoose.Schema({
     verifyToken: String,
     verifyTokenExpirt: Date
 })
+
+
+const User = mongoose.models.users || mongoose.model("users",UserSchema)
+export default User

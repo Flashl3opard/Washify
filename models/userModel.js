@@ -14,8 +14,8 @@ const UserSchema = new mongoose.Schema({
         required: [ true , "Please enter your last name"],
         unique: true
     },
-    Mobile_number : {
-        type: Number,
+    Email : {
+        type: String,
         required: [ true , "Please enter your phone number"],
         unique: true
     },

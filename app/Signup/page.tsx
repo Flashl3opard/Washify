@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [form, setForm] = useState({
@@ -9,6 +10,7 @@ const Page = () => {
     pass: "",
   });
   const [pending, setPending] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,14 +23,13 @@ const Page = () => {
     });
 
     const data = await res.json();
-    console.log("Server response:", data);
-
     setPending(false);
 
     if (!res.ok) {
       console.log(data.message);
     } else {
       console.log("User registered successfully");
+      router.push("/login");
     }
   };
 
@@ -120,7 +121,7 @@ const Page = () => {
 
         <p className="text-center text-sm text-gray-600">
           Already have an account?
-          <a href="/Login" className="text-blue-500 hover:underline m-2">
+          <a href="/login" className="text-blue-500 hover:underline m-2">
             Login here
           </a>
         </p>

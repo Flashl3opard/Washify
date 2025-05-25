@@ -1,6 +1,37 @@
+"use client";
 import React from "react";
-
+import { useState } from "react";
 const Page = () => {
+  const [form, setForm] = useState({
+    first: "",
+    last: "",
+    email: "",
+    pass: "",
+  });
+  const [pending, setPending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPending(true);
+
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+    console.log("Server response:", data);
+
+    setPending(false);
+
+    if (!res.ok) {
+      console.log(data.message); // Show validation message
+    } else {
+      console.log("User registered successfully");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center  p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">

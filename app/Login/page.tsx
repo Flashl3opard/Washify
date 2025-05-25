@@ -1,28 +1,39 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [pass, setPass] = useState<string>("");
   const [pending, setPending] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
 
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, pass }),
-    });
+    try {
+      const res = await fetch("/api/auth/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password: pass }),
+      });
 
-    const data = await res.json();
-    setPending(false);
+      const data = await res.json();
+      setPending(false);
 
-    if (!res.ok) {
-      console.error(data.message);
-    } else {
-      console.log("Logged in successfully");
+      if (!res.ok) {
+        console.error("Login error:", data.message);
+        toast.error(data.message || "Failed to login");
+      } else {
+        toast.success("Logged in successfully!");
+        router.push("/Home");
+      }
+    } catch (error) {
+      setPending(false);
+      console.error("Fetch error:", error);
+      toast.error("Network error");
     }
   };
 

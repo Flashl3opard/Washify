@@ -1,7 +1,7 @@
-import { Mode } from "fs";
+
 import mongoose , {Document,Model,Schema} from "mongoose";
 
-interface IUser extends Document{
+export interface IUser extends Document{
     first: string;
     last: string;
     email: string;

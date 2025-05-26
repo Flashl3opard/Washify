@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
-  const [pass, setPass] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [pending, setPending] = useState(false);
   const router = useRouter();
 
@@ -14,25 +15,24 @@ const LoginPage = () => {
     setPending(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password: pass }),
+      const result = await signIn("credentials", {
+        email,
+        password, // ✅ corrected key
+        redirect: false,
       });
 
-      const data = await res.json();
       setPending(false);
 
-      if (!res.ok) {
-        console.error("Login error:", data.message);
-        toast.error(data.message || "Failed to login");
-      } else {
+      if (result?.error) {
+        console.error("Login error:", result.error);
+        toast.error("Invalid credentials");
+      } else if (result?.ok) {
         toast.success("Logged in successfully!");
-        router.push("/Home");
+        router.push("/home"); // ✅ lowercase unless your route is capitalized
       }
     } catch (error) {
       setPending(false);
-      console.error("Fetch error:", error);
+      console.error("Login error:", error);
       toast.error("Network error");
     }
   };
@@ -70,8 +70,8 @@ const LoginPage = () => {
             </label>
             <input
               type="password"
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter your password"
               disabled={pending}

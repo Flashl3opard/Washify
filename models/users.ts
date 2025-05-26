@@ -12,20 +12,20 @@ export interface IUser extends Document{
 const UserSchema: Schema<IUser> = new mongoose.Schema({
     first: {
         type: String,
-        require : true
+        required : true
     },
         last: {
         type: String,
-        require : true
+        required : true
     },
         email: {
         type: String,
-        require : true,
+        required : true,
         unique: true
     },
         pass: {
         type: String,
-        require : true
+        required : true
     },
 
 
